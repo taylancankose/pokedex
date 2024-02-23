@@ -26,7 +26,7 @@ const PokeCard: React.FC<PokeCardTypes> = ({ item, onClick }) => {
           padding: 2,
         }}
       >
-        {item?.types?.map((el, i) => (
+        {item?.types?.map((el: any, i: number) => (
           <Pill
             size="small"
             key={i}

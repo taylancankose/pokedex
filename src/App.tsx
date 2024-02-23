@@ -41,9 +41,7 @@ function App() {
   }, []);
 
   const getPokeDetails = async (id: string) => {
-    const selectedPoke: PokeDetailsType | undefined = pokemons?.pokes.find(
-      (poke) => poke.id === id
-    );
+    const selectedPoke = pokemons?.pokes.find((poke) => poke.id === id);
     setPokeDetail(selectedPoke);
     setShowDetails(!showDetails);
   };
@@ -56,41 +54,8 @@ function App() {
     const filteredPokes = pokemons?.pokes.filter((item) =>
       item.name.toLowerCase().startsWith(query.trim())
     );
-    setPokemons({ pokes: filteredPokes });
+    setPokemons({ pokes });
   };
-  console.log(pokeDetail);
-  // const getPokesNext = async () => {
-  //   try {
-  //     const response = await axios.get(pokemons.next);
-  //     const result = response.data;
-  //     console.log(result.results);
-  //     result.results.map((item: { url: string }) => {
-  //       axios.get(item.url).then((res) => {
-  //         setPokemons((prevPokemons) => [...prevPokemons, res.data]);
-  //       });
-  //     });
-  //     setPokemons({
-  //       pokes: [...pokemons.pokes, ...result.results],
-  //       next: result.next,
-  //       previous: result.previous,
-  //     });
-  //     console.log(pokemons);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   const scrolling_function = () => {
-  //     if (
-  //       window.innerHeight + window.scrollY >=
-  //       document.body.offsetHeight - 10
-  //     ) {
-  //       getPokesNext();
-  //       window.removeEventListener("scroll", scrolling_function);
-  //     }
-  //   };
-  //   window.addEventListener("scroll", scrolling_function);
-  // }, []);
 
   return (
     <div
@@ -99,7 +64,7 @@ function App() {
       style={
         showDetails && windowWidth < 1130
           ? {
-              background: typeColors[pokeDetail.types[0].type.name],
+              background: typeColors[pokeDetail?.types[0]?.type?.name],
               height: "100vh",
               overflow: "hidden",
             }
