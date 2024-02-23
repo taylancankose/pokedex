@@ -14,9 +14,8 @@ const DetailCard: React.FC<DetailCardType> = ({ pokeDetail }) => {
     (acc, { base_stat }) => acc + base_stat,
     0
   );
-  console.log(total);
   return (
-    <div>
+    <div key={pokeDetail.id}>
       <img
         className="poke-img-details"
         src={`${import.meta.env.VITE_GET_POKE_GIF_URL}/${pokeDetail.id}.gif`}

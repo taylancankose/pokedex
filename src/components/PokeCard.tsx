@@ -1,5 +1,7 @@
 import React from "react";
 import { PokesType } from "../types";
+import Pill from "./Pill";
+import { typeColors } from "../assets/typeColors";
 
 interface PokeCardTypes {
   item: PokesType;
@@ -15,6 +17,24 @@ const PokeCard: React.FC<PokeCardTypes> = ({ item, onClick }) => {
       />
       <p className="poke-no">No: {item.id}</p>
       <p className="title">{item.name}</p>
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+          padding: 2,
+        }}
+      >
+        {item?.types?.map((el, i) => (
+          <Pill
+            size="small"
+            key={i}
+            name={el.type.name}
+            color={typeColors[el.type.name]}
+          />
+        ))}
+      </div>
     </div>
   );
 };

@@ -3,13 +3,14 @@ import React from "react";
 interface PillTypes {
   color: string;
   name: string;
+  size: string;
 }
 
-const Pill: React.FC<PillTypes> = ({ color, name }) => {
+const Pill: React.FC<PillTypes> = ({ size = "big", color, name }) => {
   return (
     <div>
       <p
-        className="poke-details-type-pill"
+        className={size === "big" ? "poke-details-type-pill" : "poke-card-pill"}
         style={{
           background: color,
         }}

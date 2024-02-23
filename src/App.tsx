@@ -8,12 +8,15 @@ import { typeColors } from "./assets/typeColors.ts";
 import DetailCard from "./components/DetailCard.tsx";
 import ApiService from "./services/apiService.ts";
 import { PokeDetailsType, PokeType, PokesType } from "./types/index.ts";
+import Loading from "./components/Loading.tsx";
+import NoResult from "./components/NoResult.tsx";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokeType>();
   const [pokeDetail, setPokeDetail] = useState<undefined | PokeDetailsType>();
   const [showDetails, setShowDetails] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -21,26 +24,41 @@ function App() {
 
     window.addEventListener("resize", handleResize);
 
-    // ComponentWillUnmount işlevi
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   const getPokes = async () => {
+    setLoading(true);
     const data = await ApiService.getPokes();
-    console.log(data, "data");
     setPokemons(data);
+    setLoading(false);
   };
+
   useEffect(() => {
     getPokes();
   }, []);
+
   const getPokeDetails = async (id: string) => {
-    const data = await ApiService.getPokeDetails(id);
-    setPokeDetail(data);
-    console.log(data);
+    const selectedPoke: PokeDetailsType | undefined = pokemons?.pokes.find(
+      (poke) => poke.id === id
+    );
+    setPokeDetail(selectedPoke);
     setShowDetails(!showDetails);
   };
+  const searchPoke = async (query: string) => {
+    if (!query.trim()) {
+      getPokes();
+      return;
+    }
 
+    const filteredPokes = pokemons?.pokes.filter((item) =>
+      item.name.toLowerCase().startsWith(query.trim())
+    );
+    setPokemons({ pokes: filteredPokes });
+  };
+  console.log(pokeDetail);
   // const getPokesNext = async () => {
   //   try {
   //     const response = await axios.get(pokemons.next);
@@ -73,6 +91,7 @@ function App() {
   //   };
   //   window.addEventListener("scroll", scrolling_function);
   // }, []);
+
   return (
     <div
       id="mainDiv"
@@ -91,23 +110,34 @@ function App() {
         <CloseBtn onClick={() => setShowDetails(false)} />
       ) : null}
       <div className="poke-container">
-        <Input showDetails={showDetails} />
+        <Input
+          showDetails={showDetails}
+          onChange={(e) => searchPoke(e.target.value)}
+        />
 
-        <div
-          className={
-            showDetails
-              ? "passive poke-results-container"
-              : "poke-results-container"
-          }
-        >
-          {pokemons?.pokes?.map((item: PokesType) => (
-            <PokeCard
-              item={item}
-              key={item.id}
-              onClick={() => getPokeDetails(item.id)}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <div
+            className={
+              showDetails
+                ? "passive poke-results-container"
+                : "poke-results-container"
+            }
+          >
+            {pokemons?.pokes?.length ? (
+              pokemons?.pokes?.map((item: PokesType) => (
+                <PokeCard
+                  item={item}
+                  key={item.id}
+                  onClick={() => getPokeDetails(item.id)}
+                />
+              ))
+            ) : (
+              <NoResult />
+            )}
+          </div>
+        )}
       </div>
       <div className={showDetails ? "bg-details" : ""}>
         <div

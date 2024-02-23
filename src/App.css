@@ -8,7 +8,6 @@
 .main-section {
   display: flex;
   padding: 2rem;
-  height: 100%;
 }
 
 .input-container {
@@ -24,6 +23,7 @@
 
 .poke-container {
   margin-left: 5vw;
+  width: 100%;
   max-width: 65vw;
 }
 
@@ -172,6 +172,11 @@ input:focus {
   border-radius: 0.5rem;
   margin-right: 10px;
   text-transform: capitalize;
+}
+
+.poke-card-pill {
+  border-radius: 55px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
 }
 
 .poke-details-physical {
@@ -388,6 +393,12 @@ input:focus {
     justify-content: center;
     display: flex;
   }
+  .poke-card-pill {
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  }
+  .poke-result-pill-container {
+    padding: 0;
+  }
 }
 
 @media only screen and (max-width: 350px) {
@@ -398,5 +409,8 @@ input:focus {
   .stats-container {
     width: 100%;
     flex-wrap: wrap;
+  }
+  .poke-card-pill {
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
   }
 }

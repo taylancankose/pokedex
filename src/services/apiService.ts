@@ -14,6 +14,17 @@ const ApiService = {
     }
   },
 
+  searchPokes: async (querry: string) => {
+    try {
+      const result = await axios.get(
+        `${import.meta.env.VITE_GET_POKES_URL}/${querry}`
+      );
+      return result.data;
+    } catch (error: any) {
+      console.log(error);
+      ApiService.errorResponse(error);
+    }
+  },
   getPokes: async () => {
     try {
       const result = await ApiService.get(import.meta.env.VITE_GET_POKES_URL);
