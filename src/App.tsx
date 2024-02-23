@@ -10,6 +10,8 @@ import ApiService from "./services/apiService.ts";
 import { PokeDetailsType, PokeType, PokesType } from "./types/index.ts";
 import Loading from "./components/Loading.tsx";
 import NoResult from "./components/NoResult.tsx";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import axios from "axios";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokeType>();
@@ -28,12 +30,20 @@ function App() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  console.log(typeof pokemons?.pokes[0].id);
   const getPokes = async () => {
-    setLoading(true);
-    const data = await ApiService.getPokes();
-    setPokemons(data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const result = await ApiService.get(import.meta.env.VITE_GET_POKES_URL);
+      const pokemonDataPromises = result?.results?.map(async (item: any) => {
+        const pokemonRes = await axios.get(item?.url);
+        return pokemonRes.data;
+      });
+      const pokemonData = await Promise.all(pokemonDataPromises);
+      setPokemons({ pokes: pokemonData, next: result?.next });
+      setLoading(false);
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -112,6 +122,8 @@ function App() {
           {pokeDetail ? <DetailCard pokeDetail={pokeDetail} /> : <NoData />}
         </div>
       </div>
+
+      <SpeedInsights />
     </div>
   );
 }
