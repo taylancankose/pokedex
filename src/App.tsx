@@ -6,6 +6,7 @@ import Input from "./components/Input.tsx";
 import PokeCard from "./components/PokeCard.tsx";
 import { typeColors } from "./assets/typeColors.ts";
 import DetailCard from "./components/DetailCard.tsx";
+import ApiService from "./services/apiService.ts";
 import { PokeDetailsType, PokeType, PokesType } from "./types/index.ts";
 import Loading from "./components/Loading.tsx";
 import NoResult from "./components/NoResult.tsx";
@@ -30,21 +31,10 @@ function App() {
     };
   }, []);
   const getPokes = async () => {
-    try {
-      setLoading(true);
-      const result: any = await axios.get(
-        "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
-      );
-      const pokemonDataPromises = result?.results?.map(async (item: any) => {
-        const pokemonRes = await axios.get(item?.url);
-        return pokemonRes.data;
-      });
-      const pokemonData = await Promise.all(pokemonDataPromises);
-      setPokemons({ pokes: pokemonData, next: result?.next });
-      setLoading(false);
-    } catch (error: any) {
-      console.log(error);
-    }
+    setLoading(true);
+    const data = await ApiService.getPokes();
+    setPokemons(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -89,6 +79,7 @@ function App() {
           showDetails={showDetails}
           onChange={(e) => searchPoke(e.target.value)}
         />
+
         {loading ? (
           <Loading />
         ) : (
