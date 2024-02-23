@@ -123,41 +123,31 @@ export interface TypesType {
 }
 
 export interface PokeType {
-  next?: string;
+  next?: string | null;
   pokes: PokesType[];
 }
 
 export interface PokesType {
-  base_happiness: number;
-  capture_rate: number;
-  color: NameUrl;
-  egg_groups: NameUrl[];
-  evolution_chane: {
-    url: string;
-  };
-  evolves_from_species?: any;
-  flavor_text_entries: FlavorText[];
-  form_descriptions: any;
-  form_switchable: boolean;
-  gender_rate: number;
-  genera: GeneraType[];
-  generation: NameUrl;
-  growth_rate: NameUrl;
-  habitat: NameUrl;
-  has_gender_difference: boolean;
-  hatch_counter: number;
-  id: string;
-  is_baby: boolean;
-  is_legendary: boolean;
-  is_mythical: boolean;
+  abilities: AbilitiesType[];
+  base_experience: number;
+  cries: CriesType;
+  forms: NameUrl[];
+  game_indices: GameIndicesType[];
+  height: number;
+  held_items: any;
+  id: number;
+  is_default: boolean;
+  location_area_encounters: string;
+  moves: MovesType[];
   name: string;
-  names?: NamesType[];
-  order?: number;
-  pal_park_encounters?: PalParkEncountersType[];
-  pokedex_numbers?: PokedexNumbers[];
-  shape?: NameUrl;
+  order: number;
+  past_abilities: any;
+  past_types: any;
+  species: NameUrl;
+  sprites: SpritesType;
+  stats: StatsType[];
   types?: any;
-  varieties?: VarietiesType[];
+  weight: number;
 }
 
 export interface PokeDetailsType {
@@ -179,6 +169,6 @@ export interface PokeDetailsType {
   species: NameUrl;
   sprites: SpritesType;
   stats: StatsType[];
-  types: TypesType[];
+  types?: any;
   weight: number;
 }

@@ -7,13 +7,13 @@ import PokeCard from "./components/PokeCard.tsx";
 import { typeColors } from "./assets/typeColors.ts";
 import DetailCard from "./components/DetailCard.tsx";
 import ApiService from "./services/apiService.ts";
-import { PokeType, PokesType } from "./types/index.ts";
+import { PokeDetailsType, PokeType, PokesType } from "./types/index.ts";
 import Loading from "./components/Loading.tsx";
 import NoResult from "./components/NoResult.tsx";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokeType>();
-  const [pokeDetail, setPokeDetail] = useState<PokesType>();
+  const [pokeDetail, setPokeDetail] = useState<PokeDetailsType>();
   const [showDetails, setShowDetails] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ function App() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
+  console.log(typeof pokemons?.pokes[0].id);
   const getPokes = async () => {
     setLoading(true);
     const data = await ApiService.getPokes();
@@ -40,7 +40,7 @@ function App() {
     getPokes();
   }, []);
 
-  const getPokeDetails = async (id: string) => {
+  const getPokeDetails = async (id: number) => {
     const selectedPoke = pokemons?.pokes.find((poke) => poke.id === id);
     setPokeDetail(selectedPoke);
     setShowDetails(!showDetails);
