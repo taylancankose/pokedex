@@ -88,7 +88,10 @@ function App() {
           showDetails={showDetails}
           onChange={(e) => searchPoke(e.target.value)}
         />
-
+        <p>{import.meta.env.VITE_GET_POKES_URL}</p>
+        <p>{import.meta.env.VITE_GET_POKE_DETAILS_URL}</p>
+        <p>{import.meta.env.VITE_GET_POKE_GIF_URL}</p>
+        <p>{import.meta.env.VITE_GET_POKE_IMG_URL}</p>
         {loading ? (
           <Loading />
         ) : (
