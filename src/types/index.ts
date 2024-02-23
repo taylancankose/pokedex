@@ -3,38 +3,6 @@ interface NameUrl {
   url: string;
 }
 
-interface FlavorText {
-  flavor_text: string;
-  language: NameUrl;
-  version: NameUrl;
-}
-
-interface GeneraType {
-  genus: string;
-  language: NameUrl;
-}
-
-interface NamesType {
-  language: NameUrl;
-  name: string;
-}
-
-interface PalParkEncountersType {
-  base_score: number;
-  rate: number;
-  area: NameUrl;
-}
-
-interface PokedexNumbers {
-  entry_number: number;
-  pokedex: number;
-}
-
-interface VarietiesType {
-  is_default: boolean;
-  pokemon: NameUrl;
-}
-
 interface AbilitiesType {
   ability: NameUrl;
   is_hidden: boolean;
