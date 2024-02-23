@@ -11,7 +11,6 @@ import { PokeDetailsType, PokeType, PokesType } from "./types/index.ts";
 import Loading from "./components/Loading.tsx";
 import NoResult from "./components/NoResult.tsx";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import axios from "axios";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokeType>();
