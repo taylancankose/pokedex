@@ -1,10 +1,10 @@
 import React from "react";
-import { PokesType } from "../types";
+import { PokeDetailsType } from "../types";
 import Pill from "./Pill";
 import { typeColors } from "../assets/typeColors";
 
 interface PokeCardTypes {
-  item: PokesType;
+  item: PokeDetailsType;
   onClick: () => void;
 }
 

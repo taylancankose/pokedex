@@ -178,6 +178,6 @@ export interface PokeDetailsType {
   species: NameUrl;
   sprites: SpritesType;
   stats: StatsType[];
-  types: any;
+  types: TypesType[];
   weight: number;
 }

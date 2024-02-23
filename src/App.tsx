@@ -13,7 +13,7 @@ import NoResult from "./components/NoResult.tsx";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokeType>();
-  const [pokeDetail, setPokeDetail] = useState<PokeDetailsType>();
+  const [pokeDetail, setPokeDetail] = useState<PokesType>();
   const [showDetails, setShowDetails] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ function App() {
     const filteredPokes = pokemons?.pokes.filter((item) =>
       item.name.toLowerCase().startsWith(query.trim())
     );
-    setPokemons({ pokes: filteredPokes });
+    filteredPokes && setPokemons({ pokes: filteredPokes });
   };
 
   return (

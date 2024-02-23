@@ -24,7 +24,7 @@ const DetailCard: React.FC<DetailCardType> = ({ pokeDetail }) => {
         <p className="poke-details-no">No: {pokeDetail.id}</p>
         <p className="poke-details-title">{pokeDetail.name}</p>
         <div className="poke-details-type-container">
-          {pokeDetail?.types?.map((item) => (
+          {pokeDetail?.types?.map((item: any) => (
             <Pill
               name={item.type.name}
               color={typeColors[item?.type?.name]}
