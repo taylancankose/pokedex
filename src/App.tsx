@@ -13,7 +13,7 @@ import NoResult from "./components/NoResult.tsx";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokeType>();
-  const [pokeDetail, setPokeDetail] = useState<{} | PokeDetailsType>();
+  const [pokeDetail, setPokeDetail] = useState<PokeDetailsType>();
   const [showDetails, setShowDetails] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [loading, setLoading] = useState(false);
@@ -63,7 +63,9 @@ function App() {
       style={
         showDetails && windowWidth < 1130
           ? {
-              background: typeColors[pokeDetail?.types[0]?.type?.name],
+              background: pokeDetail?.types
+                ? typeColors[pokeDetail?.types[0]?.type?.name]
+                : "orange",
               height: "100vh",
               overflow: "hidden",
             }
