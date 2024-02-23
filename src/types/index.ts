@@ -156,6 +156,7 @@ export interface PokesType {
   pal_park_encounters?: PalParkEncountersType[];
   pokedex_numbers?: PokedexNumbers[];
   shape?: NameUrl;
+  types?: any;
   varieties?: VarietiesType[];
 }
 

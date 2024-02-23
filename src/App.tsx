@@ -7,7 +7,7 @@ import PokeCard from "./components/PokeCard.tsx";
 import { typeColors } from "./assets/typeColors.ts";
 import DetailCard from "./components/DetailCard.tsx";
 import ApiService from "./services/apiService.ts";
-import { PokeDetailsType, PokeType, PokesType } from "./types/index.ts";
+import { PokeType, PokesType } from "./types/index.ts";
 import Loading from "./components/Loading.tsx";
 import NoResult from "./components/NoResult.tsx";
 
@@ -63,9 +63,7 @@ function App() {
       style={
         showDetails && windowWidth < 1130
           ? {
-              background: pokeDetail?.types
-                ? typeColors[pokeDetail?.types[0]?.type?.name]
-                : "orange",
+              background: typeColors[pokeDetail?.types[0]?.type?.name],
               height: "100vh",
               overflow: "hidden",
             }
