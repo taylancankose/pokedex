@@ -50,11 +50,10 @@ function App() {
       getPokes();
       return;
     }
-
     const filteredPokes = pokemons?.pokes.filter((item) =>
       item.name.toLowerCase().startsWith(query.trim())
     );
-    setPokemons({ pokes });
+    setPokemons({ pokes: filteredPokes });
   };
 
   return (
