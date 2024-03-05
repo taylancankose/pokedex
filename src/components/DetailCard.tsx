@@ -18,7 +18,11 @@ const DetailCard: React.FC<DetailCardType> = ({ pokeDetail }) => {
     <div key={pokeDetail.id}>
       <img
         className="poke-img-details"
-        src={`${import.meta.env.VITE_GET_POKE_GIF_URL}/${pokeDetail.id}.gif`}
+        src={
+          Number(pokeDetail.id) < 650
+            ? `${import.meta.env.VITE_GET_POKE_GIF_URL}/${pokeDetail.id}.gif`
+            : `${import.meta.env.VITE_GET_POKE_IMG_URL}/${pokeDetail.id}.png`
+        }
       />
       <div className="poke-details-inner-container">
         <p className="poke-details-no">No: {pokeDetail.id}</p>

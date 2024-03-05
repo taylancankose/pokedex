@@ -11,6 +11,7 @@ import { PokeDetailsType, PokeType, PokesType } from "./types/index.ts";
 import Loading from "./components/Loading.tsx";
 import NoResult from "./components/NoResult.tsx";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import Pagination from "./components/Pagination.tsx";
 
 function App() {
   const [pokemons, setPokemons] = useState<PokeType>();
@@ -18,6 +19,14 @@ function App() {
   const [showDetails, setShowDetails] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [loading, setLoading] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pokesPerPage, setPokesPerPage] = useState(16);
+
+  const indexOfLastPoke = currentPage * pokesPerPage;
+  const indexOfFirstPoke = indexOfLastPoke - pokesPerPage;
+  const currentPoke = pokemons?.pokes?.slice(indexOfFirstPoke, indexOfLastPoke);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -29,6 +38,7 @@ function App() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   const getPokes = async () => {
     setLoading(true);
     const data = await ApiService.getPokes();
@@ -54,6 +64,10 @@ function App() {
       item.name.toLowerCase().startsWith(query.trim())
     );
     filteredPokes && setPokemons({ pokes: filteredPokes });
+  };
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -82,25 +96,32 @@ function App() {
         {loading ? (
           <Loading />
         ) : (
-          <div
-            className={
-              showDetails
-                ? "passive poke-results-container"
-                : "poke-results-container"
-            }
-          >
-            {pokemons?.pokes?.length ? (
-              pokemons?.pokes?.map((item: PokesType) => (
-                <PokeCard
-                  item={item}
-                  key={item.id}
-                  onClick={() => getPokeDetails(item.id)}
-                />
-              ))
-            ) : (
-              <NoResult />
-            )}
-          </div>
+          <>
+            <div
+              className={
+                showDetails
+                  ? "passive poke-results-container"
+                  : "poke-results-container"
+              }
+            >
+              {pokemons?.pokes?.length ? (
+                currentPoke?.map((item: PokesType) => (
+                  <PokeCard
+                    item={item}
+                    key={item.id}
+                    onClick={() => getPokeDetails(item.id)}
+                  />
+                ))
+              ) : (
+                <NoResult />
+              )}
+            </div>
+            <Pagination
+              pokesPerPage={pokesPerPage}
+              totalPokes={pokemons?.pokes?.length}
+              paginate={paginate}
+            />
+          </>
         )}
       </div>
       <div className={showDetails ? "bg-details" : ""}>
