@@ -21,7 +21,7 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pokesPerPage, setPokesPerPage] = useState(16);
+  let pokesPerPage = 16;
 
   const indexOfLastPoke = currentPage * pokesPerPage;
   const indexOfFirstPoke = indexOfLastPoke - pokesPerPage;
