@@ -287,25 +287,6 @@ input:focus {
   color: #011030;
 }
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (max-width: 1780px) {
-  .poke-container {
-    max-width: 55vw;
-    overflow-x: hidden;
-  }
-
-  .poke-result-card {
-    padding: 2rem 3rem;
-    width: 30%;
-  }
-
-  .poke-details {
-    width: 28vw;
-    margin-top: 10rem;
-    margin-right: 3%;
-  }
-}
-
 .pagination {
   display: flex;
   width: 100%;
@@ -329,6 +310,26 @@ li,
 a {
   text-decoration: none;
   list-style-type: none;
+  cursor: pointer;
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1780px) {
+  .poke-container {
+    max-width: 55vw;
+    overflow-x: hidden;
+  }
+
+  .poke-result-card {
+    padding: 2rem 3rem;
+    width: 30%;
+  }
+
+  .poke-details {
+    width: 28vw;
+    margin-top: 10rem;
+    margin-right: 3%;
+  }
 }
 
 /* Large devices (laptops/desktops, 1130px and up) */
