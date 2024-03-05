@@ -115,12 +115,12 @@ function App() {
               ) : (
                 <NoResult />
               )}
+              <Pagination
+                pokesPerPage={pokesPerPage}
+                totalPokes={pokemons?.pokes?.length}
+                paginate={paginate}
+              />
             </div>
-            <Pagination
-              pokesPerPage={pokesPerPage}
-              totalPokes={pokemons?.pokes?.length}
-              paginate={paginate}
-            />
           </>
         )}
       </div>
@@ -133,7 +133,6 @@ function App() {
           {pokeDetail ? <DetailCard pokeDetail={pokeDetail} /> : <NoData />}
         </div>
       </div>
-
       <SpeedInsights />
     </div>
   );
